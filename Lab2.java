@@ -75,6 +75,8 @@ public class Lab2 extends JFrame implements ActionListener {
 			{
 				//I named the temporary arraylist meowmeowmeowhellokittens because i was bored.
 				ArrayList<String> meowmeowmeowhellokittens = new ArrayList<>(Arrays.asList(line.split(" ")));
+				//This makes one line into an arraylist of words
+				//it adds the arraylist of words into an arraylist of lines
 				allInstructionLists.add(meowmeowmeowhellokittens);
 				System.out.println(meowmeowmeowhellokittens);
 
@@ -114,20 +116,51 @@ public class Lab2 extends JFrame implements ActionListener {
 		}
 		catch (Exception e)
 		{
-			//TO DO : set to -1
+			//When the impostor is sus! 😳
 			return null;
 		}
 	}
 	
 	/** 
-	 * @param variableName
-	 * @param value
+	 * This sets the variable into the hash vars
+	 * @param variableName this is the varialename to set the value to. 
+	 * @param value This is an expression for a value, to be evaluated to a double. 
 	 */
-	//Getters and setters from the hashVars dictionary. 
-	public void setVariable(String variableName, String value)
+ 
+	public void setVariable(String variableName, ArrayList<String> value)
 	{
 		try {
-			hashVars.put(variableName, value);
+			//TO DO: EVALUATE VALUE WHICH IS AN EXPRESSION. 
+			double answer = Double.parseDouble(value.get(0));
+			for (int i = 1; i < value.size(); i++)
+			{
+				if (value.get(i).equals("-"))
+				{
+					answer -= Double.parseDouble(value.get(i+1));
+					i +=1;
+				}
+				else if (value.get(i).equals("+"))
+				{
+					answer += Double.parseDouble(value.get(i+1));
+					i +=1;
+				}
+				else if (value.get(i).equals("/"))
+				{
+					answer /= Double.parseDouble(value.get(i+1));
+					i +=1;
+				}
+				else if (value.get(i).equals("*"))
+				{
+					answer *= Double.parseDouble(value.get(i+1));
+					i +=1;
+				}
+				else {
+					errors.setText("You have an invalid expression");
+
+				}
+			}
+
+			hashVars.put(variableName, String.valueOf(answer));
 		}
 		catch (Exception e)
 		{
@@ -203,6 +236,7 @@ public class Lab2 extends JFrame implements ActionListener {
 				
 				if (isTrue)
 				{
+
 					ArrayList<String> tempInstructions = new ArrayList<String>();
 
 					for (int i = 5; i < instructions.size(); i++)
@@ -219,7 +253,13 @@ public class Lab2 extends JFrame implements ActionListener {
 			}
 			//Tests to see if there is a variable. 
 			else if (instructions.get(1).equals("=")){
-				setVariable(instructions.get(0),instructions.get(2));
+				ArrayList<String> tempInstructions = new ArrayList<String>();
+				for (int i = 2; i < instructions.size(); i++)
+				{
+					tempInstructions.add(instructions.get(i));
+				}
+
+				setVariable(instructions.get(0),tempInstructions);
 				return currentIndex + 1;
 			}
 			else {
@@ -273,6 +313,7 @@ public class Lab2 extends JFrame implements ActionListener {
 	public int invalidStatement()
 	{
 		//TO DO : Set text to invalid input
+		//When the impostor is sus! 😳
 		errors.setText("There was an invalid statement inside your file.");
 		return -1;
 	}
