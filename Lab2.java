@@ -82,14 +82,19 @@ public class Lab2 extends JFrame implements ActionListener {
 				line = reader.readLine();
 			}
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
 			System.out.println("yeah your file dont work");
+			errors.setText("Your file was unreadable:" + e);
 		}
+
+		//Index of the line I am currently on 
 		int index = 1;
-		while (index != -1)
+		while (index != -1) //While the function isn't ended:
 		{
+			//Process a single line
 			index = processTime(allInstructionLists.get(index - 1), index);
+			
 		}
 
 
@@ -137,13 +142,13 @@ public class Lab2 extends JFrame implements ActionListener {
 	 * @return This returns the next index to go to. In the case of END, it returns -1, which will terminate the program in another function
 	 */
 	public int processTime(ArrayList<String> instructions, int currentIndex){
-		//Just in case haah
+		//Just in case there is an error. 
 		try {
 
 			//Possible end statement
 			if (instructions.get(0).equals("END"))
 			{
-				return -1;
+				return -1; // Signals to the program that this is over
 			}
 			else if (instructions.get(0).equals("GOTO"))
 			{
@@ -151,7 +156,7 @@ public class Lab2 extends JFrame implements ActionListener {
 			}
 			else if (instructions.get(0).equals("PRINT"))
 			{
-				result.setText(result.getText() + "\n" +  getVariable(instructions.get(1)));
+				result.setText(result.getText()  +  getVariable(instructions.get(1)) + "\n");
 				return currentIndex + 1;
 			}
 			
@@ -212,12 +217,13 @@ public class Lab2 extends JFrame implements ActionListener {
 				}
 				
 			}
+			//Tests to see if there is a variable. 
 			else if (instructions.get(1).equals("=")){
-				hashVars.put(instructions.get(0),instructions.get(2));
+				setVariable(instructions.get(0),instructions.get(2));
 				return currentIndex + 1;
 			}
 			else {
-				//SET TO INVALID INDEX
+				//SET TO INVALID INDEX. Something went wrong since 
 				return -1;
 			}
 		} catch (Exception e)
@@ -247,7 +253,7 @@ public class Lab2 extends JFrame implements ActionListener {
 		}
 		else if (instructions.get(0).equals("PRINT"))
 		{
-			result.setText(result.getText() + "\n" +  hashVars.get(instructions.get(1)));
+			result.setText(result.getText() +  getVariable(instructions.get(1)) + "\n");
 			return currentIndex + 1;
 		}
 		else if (instructions.get(1).equals("=")){
