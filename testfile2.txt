@@ -1,6 +1,6 @@
 x = 20
 PRINT x
-IF x IS 20 THEN PRINT x
+IF x IS x THEN PRINT x
 GOTO 6
 PRINT x
 END

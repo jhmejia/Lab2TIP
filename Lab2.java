@@ -184,7 +184,7 @@ public class Lab2 extends JFrame implements ActionListener {
 		}
 		catch (Exception e)
 		{
-			invalidStatement();
+			invalidStatement("That is an invalid expression to assign a variable to.");
 		}
 	}
 
@@ -205,31 +205,37 @@ public class Lab2 extends JFrame implements ActionListener {
 			}
 			else if (instructions.get(0).equals("GOTO"))
 			{
-				return Integer.parseInt(instructions.get(1));
+				try
+				{
+					return Integer.parseInt(instructions.get(1));
+				}
+				catch (Exception e)
+				{
+					return invalidStatement("Cannot find line to go to.");
+				}
 			}
 			else if (instructions.get(0).equals("PRINT"))
 			{
 				result.setText(result.getText()  +  getVariable(instructions.get(1)) + "\n");
 				return currentIndex + 1;
 			}
-			
+			//POSSIBLE IF STATEMENT
 			else if (instructions.get(0).equals("IF"))
 			{
 				boolean isTrue = false;
 				//Is there even an if/is/then statement? If not then we return invalid statement
 				if ((!instructions.get(0).equals("IF")) ||(!instructions.get(2).equals("IS")) || (!instructions.get(4).equals("THEN")))
 				{
-					return invalidStatement();
+					return invalidStatement("cannot find if statement.");
 				}
-
 				//Does the variable put forth in variable exist???
-				 if (getVariable(instructions.get(1)) != null)
-				 {
+				else if (getVariable(instructions.get(1)) != null)
+				{
 					//if variable exists, Does the variable put forth in value exist???
 					if ((getVariable(instructions.get(3)) != null))
 					{
 						//if variable and value exist, Is variable = value???
-						if (Double.parseDouble(getVariable(instructions.get(1))) == Double.parseDouble(instructions.get(3)))
+						if (Double.parseDouble(getVariable(instructions.get(1))) == Double.parseDouble(getVariable(instructions.get(3))))
 						{
 							isTrue = true;
 						}
@@ -252,13 +258,9 @@ public class Lab2 extends JFrame implements ActionListener {
 				 {
 					return invalidStatement();
 				 }
-				
-				
 				if (isTrue)
 				{
-
 					ArrayList<String> tempInstructions = new ArrayList<String>();
-
 					for (int i = 5; i < instructions.size(); i++)
 					{
 						tempInstructions.add(instructions.get(i));
@@ -268,8 +270,7 @@ public class Lab2 extends JFrame implements ActionListener {
 				//Assuming the if/is statement is not true, we will just go to the next index. 
 				else {
 					return currentIndex + 1;
-				}
-				
+				}	
 			}
 			//Tests to see if there is a variable. 
 			else if (instructions.get(1).equals("=")){
@@ -337,6 +338,12 @@ public class Lab2 extends JFrame implements ActionListener {
 		errors.setText("There was an invalid statement inside your file.");
 		return -1;
 	}
-		
+	public int invalidStatement(String errMessage)
+	{
+		//TO DO : Set text to invalid input
+		//When the impostor is sus! 😳
+		errors.setText(errMessage);
+		return -1;
+	}	
 
 }

@@ -1,3 +1,7 @@
-x = 20 + 30 - 10 / 1
-PRINT x
+x = 1
+y = 1
+IF x IS y THEN GOTO 4
+z = 3
+PRINT y
+PRINT z
 END
