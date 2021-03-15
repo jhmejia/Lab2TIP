@@ -136,22 +136,42 @@ public class Lab2 extends JFrame implements ActionListener {
 			{
 				if (value.get(i).equals("-"))
 				{
-					answer -= Double.parseDouble(value.get(i+1));
+					try{
+						answer -= Double.parseDouble(value.get(i+1));
+					}
+					catch (Exception e) {
+						answer -= Double.parseDouble(getVariable(value.get(i+1)));
+					}
 					i +=1;
 				}
 				else if (value.get(i).equals("+"))
 				{
-					answer += Double.parseDouble(value.get(i+1));
+					try{
+						answer += Double.parseDouble(value.get(i+1));
+					}
+					catch (Exception e) {
+						answer += Double.parseDouble(getVariable(value.get(i+1)));
+					}
 					i +=1;
 				}
 				else if (value.get(i).equals("/"))
 				{
-					answer /= Double.parseDouble(value.get(i+1));
+					try{
+						answer /= Double.parseDouble(value.get(i+1));
+					}
+					catch (Exception e) {
+						answer /= Double.parseDouble(getVariable(value.get(i+1)));
+					}
 					i +=1;
 				}
 				else if (value.get(i).equals("*"))
 				{
-					answer *= Double.parseDouble(value.get(i+1));
+					try{
+						answer *= Double.parseDouble(value.get(i+1));
+					}
+					catch (Exception e) {
+						answer *= Double.parseDouble(getVariable(value.get(i+1)));
+					}
 					i +=1;
 				}
 				else {
