@@ -1,7 +1,7 @@
-x = 1
+x = 1 + 1 / 2 * 3 - 2
 y = 1
-IF x IS y THEN GOTO 4
-z = 3
+IF x IS y THEN GOTO 5
+x = 4
 PRINT y
-PRINT z
+PRINT x
 END
