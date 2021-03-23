@@ -239,19 +239,21 @@ public class Lab2 extends JFrame implements ActionListener {
 						{
 							isTrue = true;
 						}
-					}
-					//If variable exists but value doesn't exist, is value a double?
-					try {
-						double toCompare = Double.parseDouble(instructions.get(3));
-						if (Double.parseDouble(getVariable(instructions.get(1))) == toCompare)
+					} else{
+						try {
+							double toCompare = Double.parseDouble(instructions.get(3));
+							if (Double.parseDouble(getVariable(instructions.get(1))) == toCompare)
+							{
+								isTrue = true;
+							}
+						}
+						catch (Exception e) //This is an invalid statement since value is neither a variable nor a double. 
 						{
-							isTrue = true;
+							return invalidStatement("the value you are comparing to is neither a variable nor a double.");
 						}
 					}
-					catch (Exception e) //This is an invalid statement since value is neither a variable nor a double. 
-					{
-						return invalidStatement();
-					}
+					//If variable exists but value doesn't exist, is value a double?
+					
 				 }
 				 //The variable does not exist.
 				 else
